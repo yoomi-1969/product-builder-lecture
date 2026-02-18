@@ -1,42 +1,88 @@
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>제휴 문의 - Lotto Generator</title>
+    <title>문의하기 | 사주아이</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        .success { color: #2ecc71; margin-top: 1rem; font-weight: 600; }
+        .error { color: #e74c3c; margin-top: 1rem; font-weight: 600; }
+    </style>
 </head>
-<body>
-    <div class="container">
-        <div class="theme-toggle">
-            <button id="toggle-theme">🌓 테마 변경</button>
-        </div>
-        <nav style="margin-bottom: 20px;">
-            <a href="index.html" style="color: var(--text-color); text-decoration: none; font-size: 0.9rem;">← 로또 번호 생성기로 돌아가기</a>
+<body data-theme="light">
+    <header>
+        <a href="index.html" class="logo">🍀 사주아이</a>
+        <nav>
+            <ul>
+                <li><a href="index.html">홈</a></li>
+                <li><a href="index.html#blog">육아 정보</a></li>
+                <li><a href="contact.html">문의</a></li>
+            </ul>
         </nav>
-        
-        <h1>제휴 문의</h1>
-        <p style="margin-bottom: 2rem; color: var(--text-color); opacity: 0.8;">비즈니스 제휴 및 협업 문의를 남겨주세요.</p>
+    </header>
 
-        <form action="https://formspree.io/f/xlgwlrql" method="POST" id="contact-form">
-            <div class="form-group">
-                <input type="text" name="name" placeholder="담당자 성함" required>
-            </div>
-            <div class="form-group">
-                <input type="email" name="email" placeholder="이메일 주소" required>
-            </div>
-            <div class="form-group">
-                <input type="text" name="company" placeholder="회사명/단체명">
-            </div>
-            <div class="form-group">
-                <textarea name="message" rows="5" placeholder="문의 내용 상세" required></textarea>
-            </div>
+    <main class="container">
+        <section class="card">
+            <h1>제휴 및 문의</h1>
+            <p style="margin-top: 1rem; margin-bottom: 2rem;">사주아이 서비스와 관련된 제휴 제안이나 문의사항이 있으시면 아래 양식을 통해 보내주세요.</p>
             
-            <button type="submit" id="generate">문의 보내기</button>
-            <div id="status"></div>
-        </form>
-    </div>
+            <form action="https://formspree.io/f/mqakayvo" method="POST" id="contact-form" class="saju-form">
+                <div class="form-group">
+                    <label for="email">이메일 주소</label>
+                    <input type="email" id="email" name="email" placeholder="email@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">문의 내용</label>
+                    <textarea id="message" name="message" rows="5" style="padding: 1rem; border-radius: 0.8rem; border: 2px solid oklch(0.9 0.01 200); background: var(--bg-main); color: var(--text-main); font-family: inherit;" required></textarea>
+                </div>
+                <button type="submit" class="btn-primary">보내기</button>
+                <div id="status"></div>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 사주아이. All rights reserved.</p>
+        <div class="footer-links">
+            <a href="privacy.html">개인정보처리방침</a>
+            <a href="terms.html">이용약관</a>
+            <a href="contact.html">제휴문의</a>
+        </div>
+    </footer>
+
     <script src="main.js"></script>
+    <script>
+        const contactForm = document.getElementById("contact-form");
+        if (contactForm) {
+            contactForm.addEventListener("submit", async function(event) {
+                event.preventDefault();
+                const status = document.getElementById("status");
+                const data = new FormData(event.target);
+                
+                try {
+                    const response = await fetch(event.target.action, {
+                        method: contactForm.method,
+                        body: data,
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    });
+                    
+                    if (response.ok) {
+                        status.innerHTML = "문의가 성공적으로 전달되었습니다!";
+                        status.className = "success";
+                        contactForm.reset();
+                    } else {
+                        status.innerHTML = "문제가 발생했습니다. 다시 시도해 주세요.";
+                        status.className = "error";
+                    }
+                } catch (error) {
+                    status.innerHTML = "서버와 통신 중 오류가 발생했습니다.";
+                    status.className = "error";
+                }
+            });
+        }
+    </script>
 </body>
 </html>
