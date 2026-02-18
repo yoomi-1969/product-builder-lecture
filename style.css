@@ -19,8 +19,9 @@
 body {
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 100vh;
+    align-items: flex-start; /* 상단부터 시작하여 스크롤 가능하게 변경 */
+    min-height: 100vh;
+    padding: 2rem 0;
     margin: 0;
     background-color: var(--bg-color);
     color: var(--text-color);
@@ -35,6 +36,9 @@ body {
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     transition: background-color 0.3s;
+    width: 90%;
+    max-width: 600px; /* 컨테이너 너비 제한 */
+    margin: 0 auto;
 }
 
 .theme-toggle {

@@ -16,7 +16,15 @@ if (toggleThemeBtn) {
         
         document.documentElement.setAttribute('data-theme', newTheme);
         localStorage.setItem('theme', newTheme);
+    
+        // Disqus Theme Reset
+        if (typeof DISQUS !== 'undefined') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
     });
+    
 }
 
 // Lotto Logic
