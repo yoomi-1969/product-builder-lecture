@@ -1,3 +1,20 @@
+:root {
+    --bg-color: #f0f2f5;
+    --container-bg: #ffffff;
+    --text-color: #333333;
+    --btn-bg: #4CAF50;
+    --btn-hover: #45a049;
+    --ball-empty: #e0e0e0;
+}
+
+[data-theme="dark"] {
+    --bg-color: #1a1a1a;
+    --container-bg: #2d2d2d;
+    --text-color: #f0f2f5;
+    --btn-bg: #2e7d32;
+    --btn-hover: #1b5e20;
+    --ball-empty: #404040;
+}
 
 body {
     display: flex;
@@ -5,20 +22,35 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
-    background-color: #f0f2f5;
+    background-color: var(--bg-color);
+    color: var(--text-color);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .container {
     text-align: center;
-    background: white;
+    background: var(--container-bg);
     padding: 2rem;
     border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s;
+}
+
+.theme-toggle {
+    text-align: right;
+    margin-bottom: 1rem;
+}
+
+#toggle-theme {
+    background: transparent;
+    color: var(--text-color);
+    border: 1px solid var(--text-color);
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
 }
 
 h1 {
-    color: #333;
     margin-bottom: 2rem;
 }
 
@@ -37,31 +69,31 @@ h1 {
     justify-content: center;
     align-items: center;
     border-radius: 50%;
-    background: #e0e0e0;
+    background: var(--ball-empty);
     font-weight: bold;
     font-size: 1.2rem;
-    color: #333;
+    color: var(--text-color);
     transition: all 0.3s ease;
 }
 
-/* Color schemes for lotto numbers */
-.number.ball-1 { background: #fbc02d; color: white; } /* 1-10 yellow */
-.number.ball-2 { background: #1976d2; color: white; } /* 11-20 blue */
-.number.ball-3 { background: #d32f2f; color: white; } /* 21-30 red */
-.number.ball-4 { background: #7b1fa2; color: white; } /* 31-40 purple */
-.number.ball-5 { background: #388e3c; color: white; } /* 41-45 green */
+/* Color schemes for lotto numbers (keep these bright for both modes) */
+.number.ball-1 { background: #fbc02d; color: #fff; text-shadow: 1px 1px 2px rgba(0,0,0,0.3); }
+.number.ball-2 { background: #1976d2; color: #fff; text-shadow: 1px 1px 2px rgba(0,0,0,0.3); }
+.number.ball-3 { background: #d32f2f; color: #fff; text-shadow: 1px 1px 2px rgba(0,0,0,0.3); }
+.number.ball-4 { background: #7b1fa2; color: #fff; text-shadow: 1px 1px 2px rgba(0,0,0,0.3); }
+.number.ball-5 { background: #388e3c; color: #fff; text-shadow: 1px 1px 2px rgba(0,0,0,0.3); }
 
-button {
+#generate {
     padding: 0.8rem 1.5rem;
     font-size: 1rem;
     cursor: pointer;
-    background-color: #4CAF50;
+    background-color: var(--btn-bg);
     color: white;
     border: none;
     border-radius: 5px;
     transition: background-color 0.3s;
 }
 
-button:hover {
-    background-color: #45a049;
+#generate:hover {
+    background-color: var(--btn-hover);
 }
