@@ -5,10 +5,11 @@ A modern, user-friendly Saju (Korean traditional fortune-telling) web applicatio
 
 ## **Core Features**
 1.  **Saju Form:** Input name, gender, birth date, and birth time.
-2.  **Saju Results:** Personalized readings based on traditional "Manse-ryeok" principles (simulated or simplified logic).
-3.  **Information & Blog:** Original articles about Saju, astrology, and kids' development to provide value and satisfy AdSense content requirements.
-4.  **Monetization:** Integrated Google AdSense slots (placeholders).
-5.  **Multi-Page Navigation:** Home, Saju, Blog, Contact, Privacy Policy, Terms of Service.
+2. **Saju Results:** Personalized readings based on traditional "Manse-ryeok" principles (simulated or simplified logic).
+3. **Weather Information:** Real-time weather data integration using the KMA API (Ultra-Short-Term Forecast).
+4. **Information & Blog:** Original articles about Saju, astrology, and kids' development.
+5. **Monetization:** Integrated Google AdSense slots.
+6. **Multi-Page Navigation:** Home, Saju, Blog, Contact, Privacy Policy, Terms of Service.
 
 ## **AdSense Readiness Strategy**
 - **Original Content:** A dedicated blog section with at least 3-5 informative posts.
@@ -17,9 +18,11 @@ A modern, user-friendly Saju (Korean traditional fortune-telling) web applicatio
 - **Visual Polish:** Responsive design using CSS Container Queries and modern color palettes (OKLCH).
 
 ## **Planned Tasks**
-1.  [ ] **Update `index.html`:** Implement the new Saju form and landing page structure.
-2.  [ ] **Enhance `style.css`:** Apply a vibrant, friendly design inspired by `saju-kid.com`.
-3.  [ ] **Rewrite `main.js`:** Replace Lotto logic with Saju calculation and reading generation.
-4.  [ ] **Create Legal Pages:** `privacy.html`, `terms.html`.
-5.  [ ] **Add Blog Content:** `blog.html` and sample posts.
-6.  [ ] **Deploy to GitHub:** Ensure the project is ready for GitHub Pages or Firebase Hosting.
+1. [x] **Update `index.html`:** Implement the new Saju form and landing page structure.
+2. [x] **Enhance `style.css`:** Apply a vibrant, friendly design inspired by `saju-kid.com`.
+3. [x] **Rewrite `main.js`:** Replace Lotto logic with Saju calculation and reading generation.
+4. [x] **Create Legal Pages:** `privacy.html`, `terms.html`.
+5. [x] **Add AdSense & Meta Tags:** Verification code and ads.txt.
+6. [ ] **Integrate Weather API:** Add weather display to the header using KMA API.
+7. [ ] **Deploy to GitHub:** Final sync.
+

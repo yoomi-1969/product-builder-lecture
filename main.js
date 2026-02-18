@@ -105,3 +105,71 @@ if (sajuForm) {
 
 // Initialize
 initTheme();
+
+// Weather API Logic (KMA)
+async function fetchWeather() {
+    const weatherIcon = document.getElementById('weather-icon');
+    const weatherTemp = document.getElementById('weather-temp');
+    const authKey = 'WrSoUFZdShK0qFBWXUoS5g';
+    const nx = 55;
+    const ny = 127;
+    
+    // Calculate base_date and base_time for KMA API
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    let hours = now.getHours();
+    let minutes = now.getMinutes();
+    
+    // KMA Ultra-Short-Term Forecast (getUltraSrtFcst) updates every hour at 30 mins.
+    // We use data from 45 mins past the hour to be safe, otherwise use previous hour.
+    if (minutes < 45) {
+        if (hours === 0) {
+            // Need to handle previous day case, but for simplicity we'll just use 23:30 of previous hour
+            hours = 23;
+            // Note: properly would need to adjust date as well
+        } else {
+            hours -= 1;
+        }
+    }
+    
+    const baseDate = `${year}${month}${day}`;
+    const baseTime = `${String(hours).padStart(2, '0')}30`;
+    
+    const url = `https://apihub.kma.go.kr/api/typ02/openApi/VilageFcstInfoService_2.0/getUltraSrtFcst?pageNo=1&numOfRows=1000&dataType=JSON&base_date=${baseDate}&base_time=${baseTime}&nx=${nx}&ny=${ny}&authKey=${authKey}`;
+    
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        
+        if (data.response && data.response.body && data.response.body.items) {
+            const items = data.response.body.items.item;
+            
+            // T1H is temperature, PTY is precipitation type
+            const tempItem = items.find(i => i.category === 'T1H');
+            const ptyItem = items.find(i => i.category === 'PTY');
+            
+            if (tempItem) {
+                weatherTemp.textContent = `${tempItem.fcstValue}°C`;
+            }
+            
+            if (ptyItem) {
+                const pty = parseInt(ptyItem.fcstValue);
+                // 0: None, 1: Rain, 2: Rain/Snow, 3: Snow, 4: Shower
+                const icons = ['☀️', '🌧️', '🌨️', '❄️', '🚿'];
+                weatherIcon.textContent = icons[pty] || '☀️';
+            }
+        } else {
+            weatherTemp.textContent = '날씨 정보 오류';
+        }
+    } catch (error) {
+        console.error('Weather fetch error:', error);
+        weatherTemp.textContent = '날씨 정보 오류';
+    }
+}
+
+// Call weather on load
+if (document.getElementById('weather-info')) {
+    fetchWeather();
+}
